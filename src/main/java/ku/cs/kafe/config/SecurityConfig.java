@@ -26,13 +26,25 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/signup")).permitAll()
                         .anyRequest().authenticated()
+                )
+                .formLogin((form)->form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
+                )
+                .logout((logout) ->logout
+                        .logoutUrl("/logout")
+                        .clearAuthentication(true)
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID", "remember-me")
+                        .permitAll()
                 );
         return http.build();
     }
 
     @Bean
     public PasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 
     @Bean
