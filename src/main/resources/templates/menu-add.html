@@ -20,6 +20,16 @@
         </div>
 
         <div class="mb-3">
+            <label for="inputName">Category</label>
+            <select class="form-control" id="inputCategory" name="categoryId">
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}" th:text="${category.name}">
+                </option>
+            </select>
+        </div>
+
+
+        <div class="mb-3">
             <label for="inputPrice">Price</label>
             <input id="inputPrice" type="input" class="form-control" name="price">
         </div>

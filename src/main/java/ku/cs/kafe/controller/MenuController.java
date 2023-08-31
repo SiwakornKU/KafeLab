@@ -2,6 +2,7 @@ package ku.cs.kafe.controller;
 
 
 import ku.cs.kafe.model.MenuRequest;
+import ku.cs.kafe.service.CategoryService;
 import ku.cs.kafe.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,21 +18,27 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @GetMapping
     public String getAllMenus(Model model){
-        model.addAttribute("menus", menuService.getAllMenus());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        //model.addAttribute("menus", menuService.getAllMenus());
         return "menu-all";
     }
 
     @GetMapping("/add")
     public String getMenuForm(Model model){
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "menu-add";
     }
 
     @PostMapping("/add")
     public String createMenu(@ModelAttribute MenuRequest menu, Model model){
         menuService.createMenu(menu);
-        model.addAttribute("menus", menuService.getAllMenus());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        //model.addAttribute("menus", menuService.getAllMenus());
         return "redirect:/menus";
     }
 }
