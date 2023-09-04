@@ -12,6 +12,7 @@ import ku.cs.kafe.repository.PurchaseOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -26,6 +27,23 @@ public class OrderService {
     private MenuRepository menuRepository;
 
     private UUID currentOrderId;
+
+    public PurchaseOrder getCurrentOrder() {
+        if (currentOrderId == null)
+            createNewOrder();
+        return purchaseOrderRepository.findById(currentOrderId).get();
+    }
+
+    public void submitOrder() {
+        PurchaseOrder currentOrder =
+                purchaseOrderRepository.findById(currentOrderId).get();
+        currentOrder.setTimestamp(LocalDateTime.now());
+        currentOrder.setStatus(Status.CONFIRM);
+        purchaseOrderRepository.save(currentOrder);
+        currentOrderId = null;
+    }
+
+
 
     public void createNewOrder(){
         PurchaseOrder newOrder = new PurchaseOrder();

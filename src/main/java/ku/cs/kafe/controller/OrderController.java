@@ -5,10 +5,7 @@ import ku.cs.kafe.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -17,6 +14,19 @@ import java.util.UUID;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+
+    @GetMapping
+    public String viewCart(Model model){
+        model.addAttribute("cart", orderService.getCurrentOrder());
+        return "cart";
+    }
+
+    @PostMapping
+    public String submitOrder(Model model){
+        orderService.submitOrder();
+        model.addAttribute("confirmOrder", true);
+        return "homepage";
+    }
 
     @PostMapping("/{menuId}")
     public String order(@PathVariable UUID menuId, @ModelAttribute AddCartRequest request, Model model){

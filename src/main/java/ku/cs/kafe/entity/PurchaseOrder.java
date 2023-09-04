@@ -24,4 +24,13 @@ public class PurchaseOrder {
 
     @OneToMany(mappedBy = "purchaseOrder")
     private List<OrderItem> items = new ArrayList<>();
+
+    public double getTotal(){
+        double total = 0;
+        for(OrderItem item : items){
+            total += item.getSubtotal();
+        }
+
+        return total;
+    }
 }
