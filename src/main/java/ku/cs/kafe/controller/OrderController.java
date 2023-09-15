@@ -33,4 +33,17 @@ public class OrderController {
         orderService.order(menuId, request);
         return "redirect:/menus";
     }
+
+    @GetMapping("/{orderId}")
+    public String getAllOrders(@PathVariable UUID orderId, Model model) {
+        model.addAttribute("order", orderService.getById(orderId));
+        return "order-view";
+    }
+
+    @PostMapping("/{orderId}/finish")
+    public String finishOrder(@PathVariable UUID orderId, Model model) {
+        orderService.finishOrder(orderId);
+        return "redirect:/admin/orders";
+    }
+
 }
