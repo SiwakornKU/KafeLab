@@ -10,3 +10,4 @@ import java.util.UUID;
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, OrderItemKey> {
 }
+// 6410451423 Siwakorn Pasawang

@@ -9,3 +9,4 @@ import java.util.UUID;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, UUID> {
 }
+// 6410451423 Siwakorn Pasawang

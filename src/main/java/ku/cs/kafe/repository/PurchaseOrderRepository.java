@@ -9,3 +9,4 @@ import java.util.UUID;
 @Repository
 public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, UUID> {
 }
+// 6410451423 Siwakorn Pasawang
